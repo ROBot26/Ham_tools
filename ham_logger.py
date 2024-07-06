@@ -59,7 +59,7 @@ class HamRadioLogger:
         self.park_entry.grid(row=6, column=1, padx=5, pady=5)
 
         self.submit_button = tk.Button(master, text="Submit", command=self.submit_entry)
-        self.submit_button.grid(row=7, columnspan=2, padx=5, pady=5)
+        self.submit_button.grid(row=8, columnspan=2, padx=5, pady=5)
 
 
         def sel():
@@ -70,9 +70,9 @@ class HamRadioLogger:
 
         self.time_option=tk.IntVar()
         self.R1 = tk.Radiobutton(master, text="Now", variable=self.time_option, value=0, command=sel)
-        self.R1.grid(row=6, column=0, padx=5, pady=5, sticky="e")
+        self.R1.grid(row=7, column=0, padx=5, pady=5, sticky="e")
         self.R2 = tk.Radiobutton(master, text="Manual time", variable=self.time_option, value=1, command=sel)
-        self.R2.grid(row=6, column=2, padx=5, pady=5, sticky="e")
+        self.R2.grid(row=7, column=2, padx=5, pady=5, sticky="e")
 
 
 
@@ -102,16 +102,16 @@ class HamRadioLogger:
         
         with open("log.adif", "a") as file:
 
-            QSO_str=(f"<QSO_DATE:8{len(datestamp)}>{datestamp} <TIME_ON:4{len(timestamp)}>{timestamp} <STATION_CALL:{len(my_callsign)}>{my_callsign.upper()} <MODE:{len(mode)}>{mode} "
+            QSO_str=(f"<QSO_DATE:{len(datestamp)}>{datestamp} <TIME_ON:{len(timestamp)}>{timestamp} <STATION_CALL:{len(my_callsign)}>{my_callsign.upper()} <MODE:{len(mode)}>{mode} "
                      f"<OPERATOR:{len(my_callsign)}>{my_callsign.upper()} <MY_SIG:4>POTA <MY_SIG_INFO:{len(my_park)}>{my_park.upper()} <CALL:{len(callsign)}>{callsign.upper()}")
 
 
             print(len(park))
             print("Park is:" +str(park))
             if len(park)!=0:
-                QSO_str += f" <SIG:4>POTA <SIG_INFO:{len(park)}>{park}"
+                QSO_str += f" <SIG:4>POTA <SIG_INFO:{len(park)}>{park.upper()}"
             if len(qth)!=0:
-                QSO_str += f" <STATE:{len(qth)}>{qth}"
+                QSO_str += f" <STATE:{len(qth)}>{qth.upper()}"
 
             QSO_str += " <EOR>\n"
             file.write(QSO_str)
